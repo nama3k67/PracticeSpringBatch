@@ -14,6 +14,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -31,5 +32,19 @@ public class Line implements Serializable {
                 @JsonProperty("dob") @JsonFormat(pattern="yyyy-MM-dd") LocalDate dob) {
         this.name = name;
         this.dob = dob;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        sb.append(this.name);
+        sb.append(",");
+        sb.append(this.dob.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+        if (this.age != null) {
+            sb.append(",");
+            sb.append(this.age);
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
